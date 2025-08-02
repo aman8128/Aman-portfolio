@@ -1,0 +1,40 @@
+.top:hover{
+    background-color: antiquewhite !important;
+}
+
+/* Custom floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@media (max-width : 576px){
+  .building{
+    margin-top: 50px;
+  }
+}
+
+.services:hover{
+  background-color: rgb(254, 255, 255) !important;
+}
+
+.projects:hover{
+  background-color: rgb(227, 228, 228) !important;
+}
+
+.custom-progress > div {
+  background-color: #430b8496 !important;
+}
+
+.custom-progress1 > div{
+  background-color: #732ec16d !important;
+}
+
+.custom-progress2 > div{
+  background-color: #632f9f31 !important;
+}
