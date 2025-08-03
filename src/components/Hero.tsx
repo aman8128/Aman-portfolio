@@ -62,7 +62,7 @@ const Hero = () => {
                 href="https://github.com/aman8128/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline-light rounded-circle p-3 d-flex align-items-center justify-content-center"
+                className="btn btn-outline-dark rounded-circle p-3 d-flex align-items-center justify-content-center"
               >
                 <Github className="fs-4" />
               </a>
@@ -70,7 +70,7 @@ const Hero = () => {
                 href="https://www.linkedin.com/in/aman-rajput-a916232b9/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline-light rounded-circle p-3 d-flex align-items-center justify-content-center"
+                className="btn btn-outline-primary rounded-circle p-3 d-flex align-items-center justify-content-center"
               >
                 <Linkedin className="fs-4" />
               </a>
