@@ -20,7 +20,7 @@ import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   useEffect(() => {
-    emailjs.init('Your_Emailjs_API');
+    emailjs.init('SUjIqpnCbHf-PBkY4');
   }, []);
 
   const [formData, setFormData] = useState({
@@ -46,11 +46,11 @@ const Contact = () => {
 
     try {
       const response = await emailjs.send(
-        'Emailjs_SERVICE_ID',
-        'Emailjs_TEMPLATE_ID',
+        'service_wg1m9zc',
+        'template_uva95pe',
         {
-          to_name: 'Your_Name',
-          to_email: 'Your_Gmail',
+          to_name: 'Aman',
+          to_email: 'r80081662@gmail.com',
           from_name: formData.name,
           from_email: formData.email,
           subject: `[Website Contact] ${formData.subject}`,
@@ -86,7 +86,7 @@ const Contact = () => {
       console.error('Full error:', error);
       toast({
         title: "Failed to Send",
-        description: `Please email me directly at Your_Gmail`,
+        description: `Please email me directly at r80081662@gmail.com`,
         variant: "destructive"
       });
     } finally {
