@@ -14,6 +14,19 @@ const Hero = () => {
     }
   };
 
+  const smoothNavigate = (path) => {
+    // First scroll to top smoothly
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
+    // Then navigate after scroll completes
+    setTimeout(() => {
+      navigate(path);
+    }, 500); // Match this duration with your scroll duration
+  };
+
   return (
     <section id="home" className="min-vh-100 d-flex align-items-center justify-content-center position-relative overflow-hidden">
       {/* Background Image with Overlay */}
@@ -42,7 +55,7 @@ const Hero = () => {
 
             <div className="animate__animated animate__fadeInUp d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center mb-5">
               <button
-                onClick={() => navigate('/projects')}
+                onClick={() => smoothNavigate('/projects')}
                 className="btn btn-primary btn-lg px-4 py-3 rounded-pill d-flex align-items-center gap-2"
               >
                 Explore My Work
