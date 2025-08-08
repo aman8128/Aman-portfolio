@@ -19,6 +19,19 @@ const ProjectsPage = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
+  const smoothNavigate = (path) => {
+    // First scroll to top smoothly
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+    // Then navigate after scroll completes
+    setTimeout(() => {
+      navigate(path);
+    }, 500); // Match this duration with your scroll duration
+  };
+
   const projects = [
     {
       date: "Aug 2024 - Sept 2024",
@@ -246,20 +259,27 @@ const ProjectsPage = () => {
                         </div>
                       </div>
 
-                      <div className="flex justify-end gap-3 mt-4">
+                      <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <button
-                          className="btn btn-dark flex items-center"
-                          onClick={() => openVideoInNewTab(project.video)}
+                          onClick={() => smoothNavigate(`/case-study/project${index + 1}`)}
+                          className="flex items-center gap-2 text-sm btn btn-outline-success"
                         >
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          View Demo
+                          <Target className="w-4 h-4" />
+                          <span className="whitespace-nowrap">Case Study</span>
                         </button>
                         <button
-                          className="btn btn-outline-secondary flex items-center"
+                          className="flex items-center gap-2 text-sm btn btn-outline-dark"
+                          onClick={() => openVideoInNewTab(project.video)}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          <span className="whitespace-nowrap">Demo</span>
+                        </button>
+                        <button
+                          className="flex items-center gap-2 text-sm btn btn-outline-secondary"
                           onClick={() => window.open(project.githubUrl, '_blank')}
                         >
-                          <Github className="mr-2 h-4 w-4" />
-                          View Code
+                          <Github className="w-4 h-4" />
+                          <span className="whitespace-nowrap">Code</span>
                         </button>
                       </div>
                     </div>

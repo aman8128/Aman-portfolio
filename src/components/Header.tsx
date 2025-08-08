@@ -10,13 +10,36 @@ const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
+  const smoothNavigate = (path) => {
+    // First scroll to top smoothly
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
+    // Then navigate after scroll completes
+    setTimeout(() => {
+      navigate(path);
+    }, 500); // Match this duration with your scroll duration
+  };
+
   const scrollToSection = (sectionId: string) => {
     if (!isHomePage) {
-      navigate(`/#${sectionId}`);
+      navigate('/');
+      // Wait for the navigation to complete before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          window.scrollTo(0, 0); // First scroll to top
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
       return;
     }
+
     const element = document.getElementById(sectionId);
     if (element) {
+      // For home page, just scroll to the section
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMenuOpen(false);
     }
@@ -28,11 +51,11 @@ const Header = () => {
   };
 
   const handleResumeDownload = () => {
-  // Create a temporary anchor element
+    // Create a temporary anchor element
     const link = document.createElement('a');
     link.href = resumepath;
     link.download = 'Rajputaman_cv.pdf'; // This will be the filename when downloaded
-    
+
     // Append to body, trigger click, then remove
     document.body.appendChild(link);
     link.click();
@@ -43,49 +66,49 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="font-bold text-xl text-primary">Portfolio</div>
-          
+          <div className="font-bold text-xl text-primary">Aman Rajput - Portfolio</div>
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button 
+            <button
               onClick={() => scrollToSection('home')}
               className="text-foreground hover:text-primary transition-fast"
             >
               Home
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('about')}
               className="text-foreground hover:text-primary transition-fast"
             >
               About
             </button>
-            <button 
-              onClick={() => handleNavigate('/projects')}
+            <button
+              onClick={() => smoothNavigate('/projects')}
               className="text-foreground hover:text-primary transition-fast"
             >
               Projects
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('skills')}
               className="text-foreground hover:text-primary transition-fast"
             >
               Skills
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('services')}
               className="text-foreground hover:text-primary transition-fast"
             >
               Services
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('contact')}
               className="text-foreground hover:text-primary transition-fast"
             >
               Contact
             </button>
-            <Button 
+            <Button
               onClick={handleResumeDownload}
-              variant="outline-hero" 
+              variant="outline-hero"
               size="sm"
               className="ml-4"
             >
@@ -95,7 +118,7 @@ const Header = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden text-foreground hover:text-primary"
           >
@@ -107,45 +130,45 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 border-t border-border">
             <div className="flex flex-col space-y-4 pt-4">
-              <button 
+              <button
                 onClick={() => scrollToSection('home')}
                 className="text-left text-foreground hover:text-primary transition-fast"
               >
                 Home
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('about')}
                 className="text-left text-foreground hover:text-primary transition-fast"
               >
                 About
               </button>
-              <button 
+              <button
                 onClick={() => handleNavigate('/projects')}
                 className="text-left text-foreground hover:text-primary transition-fast"
               >
                 Projects
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('skills')}
                 className="text-left text-foreground hover:text-primary transition-fast"
               >
                 Skills
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('services')}
                 className="text-left text-foreground hover:text-primary transition-fast"
               >
                 Services
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('contact')}
                 className="text-left text-foreground hover:text-primary transition-fast"
               >
                 Contact
               </button>
-              <Button 
+              <Button
                 onClick={handleResumeDownload}
-                variant="outline-hero" 
+                variant="outline-hero"
                 size="sm"
                 className="w-fit"
               >
