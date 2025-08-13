@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Send, 
-  Github, 
-  Linkedin, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Github,
+  Linkedin,
   Twitter,
   MessageCircle,
   Clock
@@ -26,6 +26,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: ""
   });
@@ -42,6 +43,25 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!/^\d+$/.test(formData.phone)) {
+      toast({
+        title: "Invalid Phone Number",
+        description: "Phone number should contain numeric values only",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (formData.phone.length !== 10) {
+      toast({
+        title: "Invalid Phone Number",
+        description: "Phone number should be exactly 10 digits",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -53,11 +73,12 @@ const Contact = () => {
           to_email: 'r80081662@gmail.com',
           from_name: formData.name,
           from_email: formData.email,
+          from_phone: formData.phone,
           subject: `[Website Contact] ${formData.subject}`,
           message: `
             Name: ${formData.name}
             Email: ${formData.email}
-            
+            Phone: ${formData.phone}
             Subject: ${formData.subject}
             Message:
             ${formData.message}
@@ -78,6 +99,7 @@ const Contact = () => {
       setFormData({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         message: ""
       });
@@ -144,17 +166,32 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject <span className="text-danger">* </span></Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="What's this about?"
-                      required
-                      className="transition-fast focus:ring-primary"
-                    />
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone <span className="text-danger">* </span></Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="(123) 456-7890"
+                        required
+                        className="transition-fast focus:ring-primary"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Subject <span className="text-danger">* </span></Label>
+                      <Input
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        placeholder="What's this about?"
+                        required
+                        className="transition-fast focus:ring-primary"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">
@@ -171,9 +208,9 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
+                  <Button
+                    type="submit"
+                    className="w-full"
                     variant="hero"
                     size="lg"
                     disabled={isSubmitting}
@@ -241,17 +278,17 @@ const Contact = () => {
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4">Connect With Me</h3>
                   <div className="flex gap-4">
-                    <a 
-                      href="https://github.com/aman8128/" 
-                      target="_blank" 
+                    <a
+                      href="https://github.com/aman8128/"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="p-3 rounded-full bg-background hover:bg-black hover:text-white transition-smooth shadow-card hover:shadow-elegant"
                     >
                       <Github className="w-6 h-6" />
                     </a>
-                    <a 
-                      href="https://www.linkedin.com/in/aman-rajput-a916232b9/" 
-                      target="_blank" 
+                    <a
+                      href="https://www.linkedin.com/in/aman-rajput-a916232b9/"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="p-3 rounded-full bg-background hover:bg-primary hover:text-white transition-smooth shadow-card hover:shadow-elegant"
                     >
